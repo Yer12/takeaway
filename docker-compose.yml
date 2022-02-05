@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+    app:
+        build:
+            context: .
+            dockerfile: docker/Dockerfile
+        container_name: $APP_NAME
+        volumes:
+            - .:/var/www/app
+        networks:
+            - nginx_network
+            - app_network
+        depends_on:
+            - postgres
+    postgres:
+        image: postgres
+        container_name: postgres.$APP_NAME
+        volumes:
+            - ./docker/postgres/pgdata:/var/lib/postgresql/data/pgdata
+        restart: always
+        environment:
+            - POSTGRES_DB=${DB_DATABASE}
+            - POSTGRES_USER=${DB_USERNAME}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+            - PGDATA=/var/lib/postgresql/data/pgdata
+        networks:
+            - app_network
+networks:
+    nginx_network:
+        external: true
+    app_network:
+        driver: bridge

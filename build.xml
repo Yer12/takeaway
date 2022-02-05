@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<project name="Larabase" default="start" description="Шаблон Larabase" basedir=".">
+    <property file=".env"/>
+
+    <target name="start" description="Запуск приложения" depends="optimize, migrate"/>
+
+    <target name="optimize" description="Подготовить приложение к бою">
+        <if>
+            <equals arg1="${env.APP_ENV}" arg2="development"/>
+            <then>
+                <echo msg="Optimize disable for development environment"/>
+            </then>
+            <else>
+                <exec command="php artisan optimize" output="true"/>
+            </else>
+        </if>
+    </target>
+
+    <target name="migrate" description="Применить миграцию">
+        <exec command="php artisan migrate --force" output="true"/>
+    </target>
+
+    <target name="swagger" description="Сгенерировать open api документ">
+        <exec command="php artisan l5-swagger:generate" output="true"/>
+    </target>
+</project>

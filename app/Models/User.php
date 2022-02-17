@@ -12,6 +12,8 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Class User.
+ * @property string $name
+ * @property string $email
  */
 final class User extends Authenticatable implements JWTSubject
 {
@@ -32,13 +34,6 @@ final class User extends Authenticatable implements JWTSubject
     protected $hidden = [
         'password',
         'remember_token',
-    ];
-
-    /**
-     * @var string[]
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
     ];
 
     /**

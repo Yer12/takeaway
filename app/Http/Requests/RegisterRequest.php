@@ -4,24 +4,26 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use App\Services\DTO\Authentication\LoginDTO;
+use App\Services\DTO\Authentication\RegisterDTO;
 use Illuminate\Support\Arr;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * Class LoginRequest.
+ * Class RegisterRequest.
  */
-final class LoginRequest extends BaseRequest
+final class RegisterRequest extends BaseRequest
 {
     /**
      * @return array
      */
+
     #[ArrayShape(['name' => "string", 'email' => "string", 'password' => "string"])]
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required|string|min:6|max:50',
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|string|min:6|max:50'
         ];
     }
 
@@ -34,13 +36,14 @@ final class LoginRequest extends BaseRequest
     }
 
     /**
-     * @return LoginDTO
+     * @return RegisterDTO
      */
-    public function getDto(): LoginDTO
+    public function getDto(): RegisterDTO
     {
         $validated = $this->validated();
 
-        return new LoginDTO(
+        return new RegisterDTO(
+            name: Arr::get($validated, 'name'),
             email: Arr::get($validated, 'email'),
             password: Arr::get($validated, 'password')
         );

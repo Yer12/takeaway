@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\AuthenticationException;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\LoginResource;
+use App\Http\Resources\UserResource;
 use App\Services\Handlers\Authentication\LoginHandler;
+use App\Services\Handlers\Authentication\RegisterHandler;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -30,4 +33,33 @@ final class AuthController extends Controller
             new LoginResource($loginTokenDTO)
         );
     }
+
+    /**
+     * @param RegisterRequest $request
+     * @param RegisterHandler $handler
+     * @return JsonResponse
+     */
+    public function register(RegisterRequest $request, RegisterHandler $handler): JsonResponse
+    {
+        $user = $handler->handle($request->getDto());
+
+        return $this->response(
+            'User created successfully',
+            new UserResource($user)
+        );
+    }
+
+    /**
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+
+        return $this->response(
+            'User successfully signed out'
+        );
+    }
+
+
 }

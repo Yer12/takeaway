@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Exceptions;
 
 use JetBrains\PhpStorm\Pure;
+use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 /**
  * Class AuthenticationException.
@@ -17,5 +18,21 @@ final class AuthenticationException extends BaseException
     #[Pure] public static function incorrectCredentials(): self
     {
         return new self('Incorrect email or password', ErrorCodes::UNAUTHORIZED);
+    }
+
+    /**
+     * @return static
+     */
+    #[Pure] public static function tokenExpired(): self
+    {
+        return new self('Token is expired', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * @return static
+     */
+    #[Pure] public static function invalidToken(): self
+    {
+        return new self('Invalid token', ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

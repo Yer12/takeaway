@@ -16,14 +16,14 @@ final class LoginResource extends BaseResource
     /**
      * @return array
      */
-    #[ArrayShape(['access_token' => "string", 'token_type' => "string", 'expires_in' => "int", 'user' => "\Illuminate\Contracts\Auth\Authenticatable"])]
+    #[ArrayShape(['access_token' => "string", 'token_type' => "string", 'expires_in' => "int", 'user' => "\App\Http\Resources\UserResource"])]
     public function getResponseArray(): array
     {
         return [
             'access_token' => $this->accessToken,
             'token_type' => $this->tokenType,
             'expires_in' => $this->expiresIn,
-            'user' => $this->user,
+            'user' => new UserResource($this->user),
         ];
     }
 }

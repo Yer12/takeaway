@@ -16,8 +16,7 @@ class RestaurantFactory extends Factory
     protected $model = Restaurant::class;
 
 
-    public function definition()
-    {
+    public function definition(){
         return [
             'name' => $this->faker->text(30),
             'location' => $this->faker->address

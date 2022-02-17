@@ -4,7 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * @method static find(mixed $getAttribute)
+ */
 class RestaurantImage extends Model
 {
     use HasFactory;
@@ -14,7 +18,8 @@ class RestaurantImage extends Model
         'restaurant_id'
     ];
 
-    public function restaurants(){
+    public function restaurants() : BelongsTo{
         return $this->belongsTo(Restaurant::class);
     }
+
 }

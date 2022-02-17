@@ -2,8 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+<<<<<<< routes/api.php
 use App\Http\Controllers\RestaurantsController;
 
+=======
+>>>>>>> routes/api.php
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,4 +22,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
 Route::get('/restaurants', [RestaurantsController::class, 'index']);
+
+Route::get('/products/{id}', 'ProductController@show')->name('product.show');
+

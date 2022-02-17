@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/products/{id}', 'ProductController@show')->name('product.show');
+Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');

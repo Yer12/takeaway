@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RestaurantsController;
+use App\Http\Controllers\MenuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,7 @@ Route::name('authentication-')->group(function () {
     Route::post('/register', [AuthController::class, 'register'])->name('register');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
+
+Route::get('/restaurants', [RestaurantsController::class, 'index']);
+
+Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');

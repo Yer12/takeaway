@@ -16,7 +16,7 @@ final class UserResource extends BaseResource
     /**
      * @return array
      */
-    #[ArrayShape(['name' => "mixed", 'email' => "mixed"])]
+    #[ArrayShape(['name' => "string", 'email' => "string"])]
     public function getResponseArray(): array
     {
         return [

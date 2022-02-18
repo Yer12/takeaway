@@ -16,8 +16,13 @@ class Restaurant extends Model
         'image'
     ];
 
-    public function restaurantImages() : HasMany{
+    public function restaurantImages() : HasMany
+    {
         return $this->hasMany(RestaurantImage::class);
     }
 
+    public function productCategories(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class);
+    }
 }

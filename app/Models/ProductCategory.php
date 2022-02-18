@@ -4,24 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductCategory extends Model
 {
     use HasFactory;
 
-    /**
-     * Возвращает ресторан категории продуктов
-     */
-    public function restaurant()
+    public function restaurant(): BelongsTo
     {
-        return $this->belongsTo('App\Models\Restaurant');
+        return $this->belongsTo(Restaurant::class);
     }
 
-    /**
-     * Возвращает продукты определенной категории
-     */
-    public function products()
+    public function products(): HasMany
     {
-        return $this->hasMany('App\Models\Product');
+        return $this->hasMany(Product::class);
     }
 }

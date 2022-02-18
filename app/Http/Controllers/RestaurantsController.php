@@ -12,15 +12,13 @@ class RestaurantsController extends Controller{
 
         $res = [];
 
-        $inc = 1;
         foreach ($restaurants as $restaurant){
             $res[] = [
-                'restaurant_'.$inc => [
+                'restaurant' => [
                     'restaurant_data' => $restaurant,
                     'image' => $restaurant->restaurantImages()->get()->first()
                 ]
             ];
-            $inc+=1;
         }
 
         return response()->json($res);

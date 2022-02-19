@@ -10,6 +10,17 @@ class RestaurantsController extends Controller{
     public function index() : JsonResponse{
         $restaurants = Restaurant::all();
 
-        return response()->json($restaurants);
+        $res = [];
+
+        foreach ($restaurants as $restaurant){
+            $res[] = [
+                'restaurant' => [
+                    'restaurant_data' => $restaurant,
+                    'image' => $restaurant->restaurantImages()->get()->first()
+                ]
+            ];
+        }
+
+        return response()->json($res);
     }
 }

@@ -8,7 +8,7 @@ use Illuminate\Http\JsonResponse;
 class RestaurantsController extends Controller{
 
     public function index() : JsonResponse{
-        $restaurants = Restaurant::all();
+        $restaurants = Restaurant::with('restaurantImages')->get();
 
         $res = [];
 
@@ -16,7 +16,7 @@ class RestaurantsController extends Controller{
             $res[] = [
                 'restaurant' => [
                     'restaurant_data' => $restaurant,
-                    'image' => $restaurant->restaurantImages()->get()->first()
+                    'image' => $restaurant->restaurantImages()->first()
                 ]
             ];
         }

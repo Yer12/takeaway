@@ -1,0 +1,150 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Сервис для заказа из заведений без очереди",
+    "description": "Описание всех API используемых в сервисе",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://142.93.107.238/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "menu",
+      "description": "API для получения меню заведения"
+    }
+  ],
+  "paths": {
+    "/menu/{id}": {
+      "get": {
+        "tags": [
+          "menu"
+        ],
+        "summary": "Поиск меню заведения по ID",
+        "description": "Возвращает описание заведния, массив изображений заведения и меню заведения",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID заведения для которого нужно вернуть меню",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Menu"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Restaurant with id {id} is not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Menu": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MenuData"
+          }
+        }
+      },
+      "MenuData": {
+        "type": "object",
+        "properties": {
+          "restaurant_id": {
+            "type": "integer"
+          },
+          "restaurant_name": {
+            "type": "string",
+            "example": "Mamma Mia"
+          },
+          "location": {
+            "type": "string",
+            "example": "ул. Панфилова 109"
+          },
+          "restaurant_images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RestaurantImages"
+            }
+          },
+          "product_categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductCategories"
+            }
+          }
+        }
+      },
+      "RestaurantImages": {
+        "type": "object",
+        "properties": {
+          "image_id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "example": "https://via.placeholder.com/640x480.png/005522?text=repudiandae"
+          }
+        }
+      },
+      "ProductCategories": {
+        "type": "object",
+        "properties": {
+          "product_category_id": {
+            "type": "integer"
+          },
+          "product_category_name": {
+            "type": "string",
+            "example": "Пицца"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Products"
+            }
+          }
+        }
+      },
+      "Products": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "integer"
+          },
+          "product_name": {
+            "type": "string",
+            "example": "Пицца Пепперони"
+          },
+          "price": {
+            "type": "integer",
+            "example": 1600
+          },
+          "description": {
+            "type": "string",
+            "example": "Любая маленькая пицца на выбор, порция фри и Coca Cola"
+          },
+          "image": {
+            "type": "string",
+            "example": "https://via.placeholder.com/640x480.png/002299?text=similique"
+          }
+        }
+      }
+    }
+  }
+}

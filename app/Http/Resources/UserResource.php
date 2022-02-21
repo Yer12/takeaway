@@ -16,11 +16,10 @@ final class UserResource extends BaseResource
     /**
      * @return array
      */
-    #[ArrayShape(['name' => "string", 'email' => "string"])]
+    #[ArrayShape(['email' => "string"])]
     public function getResponseArray(): array
     {
         return [
-            'name' => $this->name,
             'email' => $this->email
         ];
     }

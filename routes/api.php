@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\MenuController;
@@ -16,12 +17,15 @@ use App\Http\Controllers\MenuController;
 |
 */
 
+//Для авторизованых
 Route::name('authentication-')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout')->middleware('jwt.verify');
 });
 
 Route::get('/restaurants', [RestaurantsController::class, 'index']);
 
 Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');
+
+Route::get('/order/{id}', [OrderController::class, 'index']);

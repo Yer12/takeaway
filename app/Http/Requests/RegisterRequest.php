@@ -13,16 +13,15 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 final class RegisterRequest extends BaseRequest
 {
+
     /**
      * @return array
      */
-
-
     #[ArrayShape(['email' => "string", 'password' => "string"])]
     public function rules(): array
     {
         return [
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email:rfc,dns|unique:users',
             'password' => 'required|string|min:6|max:50'
         ];
     }

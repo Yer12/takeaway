@@ -18,7 +18,7 @@ trait ResponseTrait
      * @param int $code
      * @return JsonResponse
      */
-    public function response(\App\Http\Resources\OrderResource $message, mixed $data = '', int $code = Response::HTTP_OK): JsonResponse
+    public function response(string $message, mixed $data = '', int $code = Response::HTTP_OK): JsonResponse
     {
         return response()->json([
             'message' => $message,

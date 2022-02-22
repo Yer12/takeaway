@@ -17,7 +17,6 @@ use App\Http\Controllers\MenuController;
 |
 */
 
-//Для авторизованых
 Route::name('authentication-')->group(function () {
     Route::post('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -28,4 +27,8 @@ Route::get('/restaurants', [RestaurantsController::class, 'index']);
 
 Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');
 
+/**
+ * Order' routes
+ */
 Route::get('/order/{id}', [OrderController::class, 'index']);
+Route::post('/order', [OrderController::class, 'createOrder']);

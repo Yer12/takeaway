@@ -4,18 +4,28 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-
+use App\Models\Order;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * class OrderResource.
+ * @mixin Order
+ */
 final class OrderResource extends BaseResource
 {
+    /**
+     * @return array
+     */
 
-    #[ArrayShape(['id' => "mixed", 'total_price' => "mixed"])]
+    #[ArrayShape(['order_id' => "mixed", 'total' => "mixed", 'order_detail' => "mixed"])]
     public function getResponseArray(): array
     {
         return [
-            'id' => $this->id,
-            'total_price' => $this->total_price,
+            'order_id' => $this->id,
+            'total' => $this->total,
+            'user_id' => $this->user_id,
+            'restaurant' => $this->restaurant,
+            'order_detail' => OrderDetailResource::collection($this->orderDetail),
         ];
     }
 

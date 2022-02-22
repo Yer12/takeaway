@@ -28,8 +28,8 @@ class Restaurant extends Model
         return $this->hasMany(ProductCategory::class);
     }
 
-    public function orders(): HasMany
+    public function order(): HasOne
     {
-        return $this->hasMany(Order::class);
+        return $this->hasOne(Order::class);
     }
 }

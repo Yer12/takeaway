@@ -4,18 +4,28 @@ declare(strict_types=1);
 
 namespace App\Services\DTO\Order;
 
-use App\Models\OrderDetail;
-use App\Models\Product;
-use App\Models\Restaurant;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
+/**
+ * class OrderDTO.
+ */
 final class OrderDTO
 {
     /**
-     * @param $
+     * @param int $id
+     * @param int $total
+     * @param int $user_id
+     * @param BelongsTo $restaurant
+     * @param Collection $orderDetail
      */
     public function __construct(
         public int $id,
-        public int $total_price,
-    ){
+        public int $total,
+        public int $user_id,
+        public mixed $restaurant,
+        public Collection $orderDetail,
+    ) {
     }
 }

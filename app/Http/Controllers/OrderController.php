@@ -4,21 +4,41 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderCreateRequest;
 use App\Http\Resources\OrderResource;
-use App\Services\Handlers\Order\ShowHandler;
+use App\Services\Handlers\Order\CreateOrderHandler;
+use App\Services\Handlers\Order\ShowOrderHandler;
 use Illuminate\Http\JsonResponse;
 
-
+/**
+ * class OrderController.
+ */
 final class OrderController extends Controller
 {
-    public function index(int $id, ShowHandler $handler): JsonResponse
+    /**
+     * @param int $id
+     * @param ShowOrderHandler $handler
+     * @return JsonResponse
+     */
+    public function index(int $id, ShowOrderHandler $handler): JsonResponse
     {
         $order = $handler->handle($id);
 
         return $this->response(
+            'List of customer orders',
             new OrderResource($order)
         );
+    }
 
-        //return response()->json($order);
+    /**
+     * @param OrderCreateRequest $request
+     * @param CreateOrderHandler $handler
+     * @return JsonResponse
+     */
+    public function createOrder(OrderCreateRequest $request, CreateOrderHandler $handler): JsonResponse
+    {
+        $handler->handle($request->getDto());
+
+        return $this->response('Order created successfully!');
     }
 }

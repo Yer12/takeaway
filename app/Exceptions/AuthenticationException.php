@@ -34,4 +34,9 @@ final class AuthenticationException extends BaseException
     {
         return new self('Invalid token', ErrorCodes::UNPROCESSABLE_ENTITY);
     }
+
+    #[Pure] public static function TokenNotFound(): self
+    {
+        return new self('Authorization Token not found', ErrorCodes::UNPROCESSABLE_ENTITY);
+    }
 }

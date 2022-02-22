@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 trait ResponseTrait
 {
     /**
-     * @param string $message
+     * @param \App\Http\Resources\OrderResource $message
      * @param mixed $data
      * @param int $code
      * @return JsonResponse

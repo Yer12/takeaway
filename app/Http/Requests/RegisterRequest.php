@@ -13,16 +13,15 @@ use JetBrains\PhpStorm\ArrayShape;
  */
 final class RegisterRequest extends BaseRequest
 {
+
     /**
      * @return array
      */
-
-    #[ArrayShape(['name' => "string", 'email' => "string", 'password' => "string"])]
+    #[ArrayShape(['email' => "string", 'password' => "string"])]
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email:rfc,dns|unique:users',
             'password' => 'required|string|min:6|max:50'
         ];
     }
@@ -43,7 +42,6 @@ final class RegisterRequest extends BaseRequest
         $validated = $this->validated();
 
         return new RegisterDTO(
-            name: Arr::get($validated, 'name'),
             email: Arr::get($validated, 'email'),
             password: Arr::get($validated, 'password')
         );

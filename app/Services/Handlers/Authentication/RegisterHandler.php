@@ -19,7 +19,6 @@ final class RegisterHandler
     public function handle(RegisterDTO $dto): User
     {
         return User::create([
-            'name' => $dto->name,
             'email' => $dto->email,
             'password' => bcrypt($dto->password)
         ]);

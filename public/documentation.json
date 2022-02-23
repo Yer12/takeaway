@@ -647,16 +647,24 @@
             "OrderRestaurant": {
                 "type": "object",
                 "properties": {
-                    "restaurant_id": {
+                    "id": {
                         "type": "integer"
                     },
-                    "restaurant_name": {
+                    "name": {
                         "type": "string",
                         "example": "Mamma Mia"
                     },
                     "location": {
                         "type": "string",
                         "example": "ул. Панфилова 109"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
                     }
                 }
             },
@@ -670,7 +678,42 @@
                         "type": "integer"
                     },
                     "product": {
-                        "$ref": "#/components/schemas/Products"
+                        "$ref": "#/components/schemas/OrderProduct"
+                    }
+                }
+            },
+            "OrderProduct": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "product_category_id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Пицца Пепперони"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": 1600
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Любая маленькая пицца на выбор, порция фри и Coca Cola"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://via.placeholder.com/640x480.png/002299?text=similique"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
                     }
                 }
             },

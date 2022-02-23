@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -12,7 +13,6 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 
 /**
  * Class User.
- * @property string $name
  * @property string $email
  */
 final class User extends Authenticatable implements JWTSubject
@@ -23,7 +23,6 @@ final class User extends Authenticatable implements JWTSubject
      * @var string[]
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
     ];
@@ -50,5 +49,13 @@ final class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function order(): HasOne
+    {
+        return $this->hasOne(Order::class);
     }
 }

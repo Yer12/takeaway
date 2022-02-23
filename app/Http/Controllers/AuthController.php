@@ -44,8 +44,7 @@ final class AuthController extends Controller
         $user = $handler->handle($request->getDto());
 
         return $this->response(
-            'User created successfully',
-            new UserResource($user)
+            'User created successfully'
         );
     }
 

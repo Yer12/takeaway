@@ -14,7 +14,7 @@ use App\Services\DTO\Authentication\LoginTokenDTO;
 final class LoginHandler
 {
     private const TOKEN_TYPE = 'bearer';
-    private const TOKEN_EXPIRES_TIME_UNIT = 60;
+    private const TOKEN_EXPIRES_TIME_UNIT = 1440;
 
     /**
      * @param LoginDTO $dto

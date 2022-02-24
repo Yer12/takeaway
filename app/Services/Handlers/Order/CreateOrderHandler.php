@@ -41,11 +41,12 @@ final class CreateOrderHandler
     private function getTotalPrice(array $products): float
     {
         $result = 0;
-        $mappedProducts = array_map(function (array $product) {
-            return [
-                $product['id'] => $product['quantity']
-            ];
-        }, $products);
+
+        $mappedProducts = [];
+
+        foreach($products as $product) {
+            $mappedProducts[$product['id']] = $product['quantity'];
+        }
 
         $productsIds = array_keys($mappedProducts);
 
@@ -68,7 +69,12 @@ final class CreateOrderHandler
      */
     private function createOrderDetail(Order $order, array $products)
     {
-        foreach ($products as $productId => $quantity)
+        $mappedProducts = [];
+        foreach($products as $product) {
+            $mappedProducts[$product['id']] = $product['quantity'];
+        }
+
+        foreach ($mappedProducts as $productId => $quantity)
         {
             OrderDetail::create([
                 'order_id' => $order->id,

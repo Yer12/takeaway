@@ -26,7 +26,11 @@ final class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'restaurant_id', 'total'];
+    protected $fillable = [
+        'user_id',
+        'restaurant_id',
+        'total'
+    ];
 
     /**
      * @return HasMany

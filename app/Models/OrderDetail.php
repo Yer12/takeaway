@@ -16,9 +16,17 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $product
  * class OrderDetailResource.
  */
+
+
 final class OrderDetail extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'order_id',
+        'product_id',
+        'quantity'
+    ];
 
     /**
      * @return BelongsTo

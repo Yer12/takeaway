@@ -281,7 +281,6 @@
                 ],
                 "summary": "Используется для получения заказа пользователя из корзины",
                 "requestBody": {
-                    "description": "* Важно что в массиве products ключем(additionalProp) является product_id, а значением явлется кол-во продуктов",
                     "content": {
                         "application/json": {
                             "schema": {
@@ -719,27 +718,30 @@
             },
             "OrderInput": {
                 "required": [
-                    "user_id",
                     "restaurant_id",
-                    "total",
                     "products"
                 ],
                 "type": "object",
                 "properties": {
-                    "used_id": {
-                        "type": "integer"
-                    },
                     "restaurant_id": {
                         "type": "integer"
                     },
-                    "total": {
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderCreateProduct"
+                        }
+                    }
+                }
+            },
+            "OrderCreateProduct": {
+                "type": "object",
+                "properties": {
+                    "id": {
                         "type": "integer"
                     },
-                    "products": {
-                        "type": "object",
-                        "additionalProperties": {
-                            "type": "integer"
-                        }
+                    "quantity": {
+                        "type": "integer"
                     }
                 }
             },

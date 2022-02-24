@@ -4,23 +4,22 @@ declare(strict_types=1);
 
 namespace App\Services\DTO\Order;
 
-use App\Models\Order;
+use App\Services\DTO\InterfaceDTO;
 
 /**
  * class OrderCreateDTO
- * @mixin Order
  */
 final class OrderCreateDTO
 {
     /**
-     * @param int $user_id
-     * @param int $restaurant_id
-     * @param int $total
+     * @param int $userId
+     * @param int $restaurantId
+     * @param array $products
      */
     public function __construct(
-        public int $user_id,
-        public int $restaurant_id,
-        public int $total,
+        public int $userId,
+        public int $restaurantId,
+        public array $products,
     ) {
     }
 }

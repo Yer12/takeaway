@@ -21,7 +21,6 @@ final class LoginTokenDTO
         public string $accessToken,
         public string $tokenType,
         public int $expiresIn,
-        public Authenticatable $user,
     ) {
     }
 }

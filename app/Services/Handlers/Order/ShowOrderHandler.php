@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Handlers\Order;
 
 use App\Models\Order;
-use App\Models\OrderDetail;
 use App\Services\DTO\Order\OrderDTO;
 use JetBrains\PhpStorm\Pure;
 
@@ -21,26 +20,25 @@ final class ShowOrderHandler
      */
     public function handle(int $id): OrderDTO
     {
-        $order = Order::with('restaurant', 'user')->where('id', $id)->first();
-        $orderDetails = OrderDetail::with('product')->where('order_id', $order->id)->get();
+        /** @var Order $order */
+        $order = Order::with('restaurant', 'user', 'orderDetails')->find($id);
 
-        return $this->getOrderDTO($order, $orderDetails);
+        return $this->getOrderDTO($order);
     }
 
     /**
-     * @param $order
-     * @param $orderDetails
+     * @param Order $order
      * @return OrderDTO
      */
     #[Pure]
-    private function getOrderDTO($order, $orderDetails): OrderDTO
+    private function getOrderDTO(Order $order): OrderDTO
     {
         return new OrderDTO(
             id: $order->id,
             total: $order->total,
             user_id: $order->user_id,
-            restaurant: $order->restaurant(),
-            orderDetail: $orderDetails,
+            restaurant: $order->restaurant,
+            orderDetail: $order->orderDetails,
         );
     }
 }

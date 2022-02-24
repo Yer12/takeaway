@@ -31,4 +31,4 @@ Route::get('/menu/{id}', [MenuController::class, 'show'])->where('id', '[0-9]+')
  * Order' routes
  */
 Route::get('/order/{id}', [OrderController::class, 'index']);
-Route::post('/order', [OrderController::class, 'createOrder']);
+Route::post('/orders', [OrderController::class, 'createOrder']);

@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Http\Resources;
 
 use App\Models\Order;
+use App\Services\DTO\Order\OrderDTO;
 use JetBrains\PhpStorm\ArrayShape;
 
 /**
  * class OrderResource.
- * @mixin Order
+ * @mixin OrderDTO
  */
 final class OrderResource extends BaseResource
 {
     /**
      * @return array
      */
-
-    #[ArrayShape(['order_id' => "mixed", 'total' => "mixed", 'order_detail' => "mixed"])]
+    #[ArrayShape(['order_id' => "int", 'total' => "int", 'user_id' => "int", 'restaurant' => "\App\Models\Restaurant", 'order_detail' => "\Illuminate\Http\Resources\Json\AnonymousResourceCollection"])]
     public function getResponseArray(): array
     {
         return [
@@ -28,15 +28,4 @@ final class OrderResource extends BaseResource
             'order_detail' => OrderDetailResource::collection($this->orderDetail),
         ];
     }
-
-//    private function getTotalPrice(Collection $order, Collection $products)
-//    {
-//        $result = 0;
-//
-//        foreach ($order as $od) {
-//            $result += $products->find($od->product_id)->price * $orderProduct->count;
-//        }
-//
-//        return $result;
-//    }
 }

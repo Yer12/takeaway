@@ -53,7 +53,6 @@ final class LoginHandler
             accessToken: $token,
             tokenType: self::TOKEN_TYPE,
             expiresIn: auth()->factory()->getTTL() * self::TOKEN_EXPIRES_TIME_UNIT,
-            user: auth()->user(),
         );
     }
 }

@@ -12,7 +12,7 @@ use JetBrains\PhpStorm\ArrayShape;
 /**
  * class OrderCreateRequest.
  */
-final class     OrderCreateRequest extends BaseRequest
+final class OrderCreateRequest extends BaseRequest
 {
     /**
      * @return array

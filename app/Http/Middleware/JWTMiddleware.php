@@ -35,11 +35,11 @@ final class JWTMiddleware extends BaseMiddleware
         try {
             JWTAuth::parseToken()->authenticate();
         } catch (TokenInvalidException){
-            return throw InvalidTokenException::invalidToken();
+            throw InvalidTokenException::invalidToken();
         } catch (TokenExpiredException){
-            return throw ExpiredTokenException::tokenExpired();
+            throw ExpiredTokenException::tokenExpired();
         } catch (Throwable){
-            return throw AuthenticationException::TokenNotFound();
+            throw AuthenticationException::TokenNotFound();
         }
         return $next($request);
     }

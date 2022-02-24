@@ -43,12 +43,12 @@ final class CreateOrderHandler
         $result = 0;
 
         $mappedProducts = [];
+        $productsIds = [];
 
         foreach($products as $product) {
             $mappedProducts[$product['id']] = $product['quantity'];
+            $productsIds[] = $product['id'];
         }
-
-        $productsIds = array_keys($mappedProducts);
 
         /** @var Collection $products */
         $products = Product::select(['id', 'price'])
@@ -69,19 +69,13 @@ final class CreateOrderHandler
      */
     private function createOrderDetail(Order $order, array $products)
     {
-        $mappedProducts = [];
-        foreach($products as $product) {
-            $mappedProducts[$product['id']] = $product['quantity'];
-        }
-
-        foreach ($mappedProducts as $productId => $quantity)
+        foreach ($products as $product)
         {
             OrderDetail::create([
                 'order_id' => $order->id,
-                'product_id' => $productId,
-                'quantity' => $quantity,
+                'product_id' => $product['id'],
+                'quantity' => $product['quantity'],
             ]);
         }
     }
 }
-

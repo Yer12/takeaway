@@ -16,8 +16,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property mixed $product
  * class OrderDetailResource.
  */
-
-
 final class OrderDetail extends Model
 {
     use HasFactory;

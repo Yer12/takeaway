@@ -30,5 +30,5 @@ Route::get('/menu/{id}', [MenuController::class, 'show'])->where('id', '[0-9]+')
 /**
  * Order' routes
  */
-Route::get('/order/{id}', [OrderController::class, 'index']);
-Route::post('/orders', [OrderController::class, 'createOrder']);
+Route::get('/order/{id}', [OrderController::class, 'index'])->middleware('jwt.verify');
+Route::post('/orders', [OrderController::class, 'createOrder'])->middleware('jwt.verify');

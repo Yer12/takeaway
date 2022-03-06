@@ -1,22 +1,20 @@
 <?php
 
-namespace Tests\Feature;
+namespace Controller;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use Facade\FlareClient\Http\Response;
 use Tests\TestCase;
 
-class RestaurantTest extends TestCase
+class RestaurantControllerTest extends TestCase
 {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_example()
+    public function test_restaurants_show() : void
     {
         $response = $this->json('GET', 'api/restaurants');
-
         $response->assertStatus(200);
     }
 }

@@ -16,12 +16,19 @@ class MenuControllerTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
     }
 
-    public function testMenuIfRestaurantIdIsWrong(): void
+    public function testMenuIfRestaurantIdIsAbsent(): void
     {
         $response = $this->json('GET', route('menu.show', ['id' => 999]));
         $response->assertJsonFragment([
             'message'    => 'Restaurant with id 999 is not found',
             'error_code' => 404
         ]);
+    }
+
+    public function testMenuIfRestaurantIdIsNotInteger(): void
+    {
+        $response = $this->json('GET', route('menu.show', ['id' => 'Word']));
+        $response->assertStatus(Response::HTTP_NOT_FOUND);
+
     }
 }

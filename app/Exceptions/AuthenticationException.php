@@ -22,19 +22,6 @@ final class AuthenticationException extends BaseException
     /**
      * @return static
      */
-    #[Pure] public static function tokenExpired(): self
-    {
-        return new self('Token is expired', ErrorCodes::UNPROCESSABLE_ENTITY);
-    }
-
-    /**
-     * @return static
-     */
-    #[Pure] public static function invalidToken(): self
-    {
-        return new self('Invalid token', ErrorCodes::UNPROCESSABLE_ENTITY);
-    }
-
     #[Pure] public static function TokenNotFound(): self
     {
         return new self('Authorization Token not found', ErrorCodes::UNPROCESSABLE_ENTITY);

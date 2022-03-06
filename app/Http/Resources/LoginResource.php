@@ -23,7 +23,6 @@ final class LoginResource extends BaseResource
             'access_token' => $this->accessToken,
             'token_type' => $this->tokenType,
             'expires_in' => $this->expiresIn,
-            'user' => new UserResource($this->user),
         ];
     }
 }

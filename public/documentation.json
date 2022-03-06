@@ -12,15 +12,180 @@
     ],
     "tags": [
         {
-            "name": "menu",
-            "description": "API для получения меню заведения"
+            "name": "registration / authentication",
+            "description": "API для регистрации и аутентификации"
         },
         {
             "name": "restaurants",
             "description": "API для получения ресторанов"
+        },
+        {
+            "name": "menu",
+            "description": "API для получения меню заведения"
+        },
+        {
+            "name": "order",
+            "description": "API для совершения заказа"
         }
     ],
     "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "registration / authentication"
+                ],
+                "summary": "Аутентификация пользователя",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginInput"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "succesful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessfulLogin"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "incorrect data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FailedLogin"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "tags": [
+                    "registration / authentication"
+                ],
+                "summary": "Регистрация пользователя",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginInput"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "succesful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessfulRegister"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Register422ResponseOne"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Register422ResponseTwo"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "registration / authentication"
+                ],
+                "summary": "Выход пользователя",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "succesful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessfulLogout"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    },
+                    "422": {
+                        "description": "unprocessable entity",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Logout422ResponseOne"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Logout422ResponseTwo"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Logout422ResponseThree"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/restaurants": {
+            "get": {
+                "tags": [
+                    "restaurants"
+                ],
+                "summary": "Получение всех заведении",
+                "description": "Возвращает описание всех заведении и массив изображении",
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Restaurant"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/menu/{id}": {
             "get": {
                 "tags": [
@@ -51,35 +216,213 @@
                         }
                     },
                     "404": {
-                        "description": "Restaurant with id {id} is not found"
-                    }
-                }
-            }
-        },
-        "/restaurants": {
-            "get": {
-                "tags": [
-                    "restaurants"
-                ],
-                "summary": "Получение всех заведении",
-                "description": "Возвращает описание всех заведении и массив изображении",
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
+                        "description": "not found",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/Restaurant"
+                                    "oneOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Menu404ResponseOne"
+                                        },
+                                        {
+                                            "$ref": "#/components/schemas/Menu404ResponseTwo"
+                                        }
+                                    ]
                                 }
                             }
                         }
                     }
                 }
             }
+        },
+        "/order/{id}": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Возвращает заказы пользователя по его ID",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/OrderById"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/orders": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Используется для получения заказа пользователя из корзины",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/OrderInput"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SuccessfulOrder"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedError"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
     },
     "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
         "schemas": {
+            "LoginInput": {
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "example": "example@mail.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "example": "QWERTY123456789"
+                    }
+                }
+            },
+            "SuccessfulLogin": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "User is logged in"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/JWTToken"
+                    }
+                }
+            },
+            "FailedLogin": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Incorrect email or password"
+                    }
+                }
+            },
+            "SuccessfulRegister": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "User created successfully"
+                    }
+                }
+            },
+            "Register422ResponseOne": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "The email must be a valid email address."
+                    }
+                }
+            },
+            "Register422ResponseTwo": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "The email has already been taken."
+                    }
+                }
+            },
+            "SuccessfulLogout": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "User successfully signed out"
+                    }
+                }
+            },
+            "Logout422ResponseOne": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Token is expired"
+                    }
+                }
+            },
+            "Logout422ResponseTwo": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Invalid token"
+                    }
+                }
+            },
+            "Logout422ResponseThree": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Authorization Token not found"
+                    }
+                }
+            },
             "Restaurant": {
                 "type": "object",
                 "properties": {
@@ -264,6 +607,192 @@
                         "example": "https://via.placeholder.com/640x480.png/002299?text=similique"
                     }
                 }
+            },
+            "OrderById": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "List of customer orders"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/OrdersData"
+                    }
+                }
+            },
+            "OrdersData": {
+                "type": "object",
+                "properties": {
+                    "order_id": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "integer"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "restaurant": {
+                        "$ref": "#/components/schemas/OrderRestaurant"
+                    },
+                    "order_detail": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrdersDetail"
+                        }
+                    }
+                }
+            },
+            "OrderRestaurant": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Mamma Mia"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "ул. Панфилова 109"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
+                    }
+                }
+            },
+            "OrdersDetail": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    },
+                    "product": {
+                        "$ref": "#/components/schemas/OrderProduct"
+                    }
+                }
+            },
+            "OrderProduct": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "product_category_id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Пицца Пепперони"
+                    },
+                    "price": {
+                        "type": "integer",
+                        "example": 1600
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Любая маленькая пицца на выбор, порция фри и Coca Cola"
+                    },
+                    "image": {
+                        "type": "string",
+                        "example": "https://via.placeholder.com/640x480.png/002299?text=similique"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2022-02-21T10:03:59.000000Z"
+                    }
+                }
+            },
+            "OrderInput": {
+                "required": [
+                    "restaurant_id",
+                    "products"
+                ],
+                "type": "object",
+                "properties": {
+                    "restaurant_id": {
+                        "type": "integer"
+                    },
+                    "products": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OrderCreateProduct"
+                        }
+                    }
+                }
+            },
+            "OrderCreateProduct": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "quantity": {
+                        "type": "integer"
+                    }
+                }
+            },
+            "SuccessfulOrder": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Order created successfully"
+                    }
+                }
+            },
+            "Menu404ResponseOne": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Not found"
+                    }
+                }
+            },
+            "Menu404ResponseTwo": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Restaurant with id {id} is not found"
+                    }
+                }
+            },
+            "JWTToken": {
+                "type": "object",
+                "properties": {
+                    "access_token": {
+                        "type": "string",
+                        "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwuY29tIiwiZXhwIjoxNDI2NDIwODAwLCJodHRwOi8vdG9wdGFsLmNvbS9qd3RfY2xhaW1zL2lzX2FkbWluIjp0cnVlLCjb21wYW55IjoiVG9wdGFsIiwiYXdlc29tZSI6dHJ1ZX0.yRQYnWzskCZUxPwaQupWkiUzKELZ49eM7oWxAQK_ZXw"
+                    },
+                    "token_type": {
+                        "type": "string",
+                        "example": "bearer"
+                    },
+                    "expires_in": {
+                        "type": "integer",
+                        "example": 86400
+                    }
+                }
+            }
+        },
+        "responses": {
+            "UnauthorizedError": {
+                "description": "Access token is missing or invalid"
             }
         }
     }

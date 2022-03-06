@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests;
 
+use App\Models\User;
 use App\Services\DTO\Order\OrderCreateDTO;
 use Illuminate\Support\Arr;
 use JetBrains\PhpStorm\ArrayShape;
@@ -16,13 +17,14 @@ final class OrderCreateRequest extends BaseRequest
     /**
      * @return array
      */
-    #[ArrayShape(['user_id' => "string", 'restaurant_id' => "string", 'total' => "string"])]
+    #[ArrayShape(['restaurant_id' => "string", 'products' => "string", 'products.*.id' => "string", 'products.*.quantity' => "string"])]
     public function rules(): array
     {
         return [
-            'user_id' => 'integer',
-            'restaurant_id' => 'integer',
-            'total' => 'integer',
+            'restaurant_id' => 'required|integer|exists:restaurants,id',
+            'products' => 'required|array',
+            'products.*.id' => 'required|integer|exists:products,id',
+            'products.*.quantity' => 'required|integer',
         ];
     }
 
@@ -41,10 +43,13 @@ final class OrderCreateRequest extends BaseRequest
     {
         $validated = $this->validated();
 
+        /** @var User $user */
+        $user = $this->user();
+
         return new OrderCreateDTO(
-            user_id: Arr::get($validated, 'user_id'),
-            restaurant_id: Arr::get($validated, 'restaurant_id'),
-            total: Arr::get($validated, 'total')
+            userId: $user->id,
+            restaurantId: Arr::get($validated, 'restaurant_id'),
+            products: Arr::get($validated, 'products')
         );
     }
 }

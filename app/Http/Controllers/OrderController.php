@@ -25,11 +25,11 @@ final class OrderController extends Controller
      */
     public function index(int $id, ShowOrderHandler $handler): JsonResponse
     {
-        $order = $handler->handle($id);
+        $orderDTO = $handler->handle($id);
 
         return $this->response(
             'List of customer orders',
-            new OrderResource($order)
+            new OrderResource($orderDTO)
         );
     }
 

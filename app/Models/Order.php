@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,12 +16,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $restaurant_id
  * @property int $total
  * @property timestamp $created_at
+ * @property-read Restaurant $restaurant
+ * @property-read User $user
+ * @property-read Collection|OrderDetail[] $orderDetails
  * class Order.
  */
 
 final class Order extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'restaurant_id',
+        'total'
+    ];
 
     /**
      * @return HasMany

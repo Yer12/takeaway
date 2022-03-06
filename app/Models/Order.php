@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $id
+ * @property int $order_status
  * @property int $user_id
  * @property int $restaurant_id
  * @property int $total
@@ -29,7 +30,8 @@ final class Order extends Model
     protected $fillable = [
         'user_id',
         'restaurant_id',
-        'total'
+        'total',
+        'order_status'
     ];
 
     /**

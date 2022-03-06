@@ -30,5 +30,7 @@ Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');
 /**
  * Order' routes
  */
-Route::get('/order/{id}', [OrderController::class, 'index'])->middleware('jwt.verify');
-Route::post('/orders', [OrderController::class, 'createOrder'])->middleware('jwt.verify');
+Route::middleware('jwt.verify')->group(function () {
+    Route::get('/orders', [OrderController::class, 'show'])->name('order.show');
+    Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('order.create');
+});

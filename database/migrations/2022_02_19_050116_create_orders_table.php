@@ -21,11 +21,14 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
             $table->foreign('restaurant_id')
                 ->references('id')
                 ->on('restaurants')
-                ->onDelete('cascade');
+                ->onDelete('cascade')
+                ->onUpdate('restrict');
+            $table->integer('order_status');
             $table->timestamps();
         });
     }

@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 
 class RestaurantsController extends Controller{
 
-    public function index() : Response{
+    public function index() : JsonResponse{
         $restaurants = Restaurant::with('restaurantImages')->get();
 
         $res = [];
@@ -22,6 +23,6 @@ class RestaurantsController extends Controller{
             ];
         }
 
-        return response($res);
+        return response()->json($res);
     }
 }

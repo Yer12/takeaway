@@ -49,7 +49,7 @@ final class OrderCreateRequest extends BaseRequest
         return new OrderCreateDTO(
             userId: $user->id,
             restaurantId: Arr::get($validated, 'restaurant_id'),
-            products: Arr::get($validated, 'products')
+            products: Arr::get($validated, 'products'),
         );
     }
 }

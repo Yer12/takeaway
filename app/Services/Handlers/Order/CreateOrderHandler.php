@@ -28,6 +28,7 @@ final class CreateOrderHandler
                 'user_id' => $dto->userId,
                 'restaurant_id' => $dto->restaurantId,
                 'total' => $this->getTotalPrice($dto->products),
+                'order_status' => rand(0, 3)
             ]);
 
             $this->createOrderDetail($order, $dto->products);
@@ -56,7 +57,7 @@ final class CreateOrderHandler
             ->get();
 
         $products->each(function (Product $product) use ($mappedProducts, &$result) {
-            $result = $product->price * $mappedProducts[$product->id];
+            $result += $product->price * $mappedProducts[$product->id];
         });
 
         return (float) $result;

@@ -235,23 +235,12 @@
                 }
             }
         },
-        "/order/{id}": {
+        "/orders": {
             "get": {
                 "tags": [
                     "order"
                 ],
                 "summary": "Возвращает заказы пользователя по его ID",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "ID пользователя",
-                        "required": true,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "successful operation",
@@ -274,7 +263,7 @@
                 ]
             }
         },
-        "/orders": {
+        "/orders/create": {
             "post": {
                 "tags": [
                     "order"
@@ -628,6 +617,16 @@
                     },
                     "total": {
                         "type": "integer"
+                    },
+                    "order_status": {
+                        "type": "integer",
+                        "description": "Статус заказа",
+                        "enum": [
+                            "0 - в оброботке",
+                            "1 - на кухне",
+                            "2 - готов",
+                            "3 - завершен"
+                        ]
                     },
                     "user_id": {
                         "type": "integer"

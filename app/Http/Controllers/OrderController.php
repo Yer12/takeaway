@@ -16,6 +16,8 @@ use Illuminate\Http\JsonResponse;
 
 
 
+
+
 final class OrderController extends Controller
 {
     /**
@@ -23,9 +25,9 @@ final class OrderController extends Controller
      * @param ShowOrderHandler $handler
      * @return JsonResponse
      */
-    public function index(int $id, ShowOrderHandler $handler): JsonResponse
+    public function show(ShowOrderHandler $handler): JsonResponse
     {
-        $orderDTO = $handler->handle($id);
+        $orderDTO = $handler->handle(auth()->user()->id);
 
         return $this->response(
             'List of customer orders',

@@ -18,7 +18,7 @@ class RestaurantImageFactory extends Factory
     public function definition()
     {
         return [
-            'image_url' => $this->faker->imageUrl
+            'image_url' => $this->faker->restaurant
         ];
     }
 }

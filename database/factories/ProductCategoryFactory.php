@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Restaurant;
+use FakerRestaurant\Provider\en_US\Restaurant as RestaurantFaker;
 
 class ProductCategoryFactory extends Factory
 {
@@ -14,7 +15,7 @@ class ProductCategoryFactory extends Factory
      */
     public function definition()
     {
-        $this->faker->addProvider(new \FakerRestaurant\Provider\en_US\Restaurant($this->faker));
+        $this->faker->addProvider(new RestaurantFaker($this->faker));
 
         return [
             'restaurant_id' => Restaurant::inRandomOrder()->first()->id,

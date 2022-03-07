@@ -25,7 +25,7 @@ Route::name('authentication-')->group(function () {
 
 Route::get('/restaurants', [RestaurantsController::class, 'index']);
 
-Route::get('/menu/{id}', [MenuController::class, 'show'])->name('menu.show');
+Route::get('/menu/{id}', [MenuController::class, 'show'])->where('id', '[0-9]+')->name('menu.show');
 
 /**
  * Order' routes

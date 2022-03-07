@@ -13,6 +13,9 @@ use Illuminate\Http\JsonResponse;
 /**
  * class OrderController.
  */
+
+// Request -> DTO -> Controller -> Handler -> DTO -> Resource -> Response
+
 final class OrderController extends Controller
 {
     /**

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Services\DTO\Order;
 
-use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -13,18 +12,10 @@ use Illuminate\Database\Eloquent\Collection;
 final class OrderDTO
 {
     /**
-     * @param int $id
-     * @param int $total
-     * @param int $user_id
-     * @param Restaurant $restaurant
-     * @param Collection $orderDetail
+     * @param Collection $order
      */
     public function __construct(
-        public int $id,
-        public int $total,
-        public int $user_id,
-        public Restaurant $restaurant,
-        public Collection $orderDetail,
+        public Collection $order,
     ) {
     }
 }

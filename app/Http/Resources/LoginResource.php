@@ -16,7 +16,7 @@ final class LoginResource extends BaseResource
     /**
      * @return array
      */
-    #[ArrayShape(['access_token' => "string", 'token_type' => "string", 'expires_in' => "int", 'user' => "\App\Http\Resources\UserResource"])]
+    #[ArrayShape(['access_token' => "string", 'token_type' => "string", 'expires_in' => "int"])]
     public function getResponseArray(): array
     {
         return [

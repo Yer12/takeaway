@@ -6,6 +6,7 @@ namespace App\Services\Handlers\Order;
 
 use App\Models\Order;
 use App\Services\DTO\Order\OrderDTO;
+use Illuminate\Database\Eloquent\Collection;
 use JetBrains\PhpStorm\Pure;
 
 
@@ -21,7 +22,7 @@ final class ShowOrderHandler
     public function handle(int $id): OrderDTO
     {
         /** @var Order $order */
-        $order = Order::with('restaurant', 'user', 'orderDetails')->find($id);
+        $order = Order::with('restaurant', 'user', 'orderDetails')->where('user_id', $id)->get();
 
         return $this->getOrderDTO($order);
     }
@@ -31,14 +32,10 @@ final class ShowOrderHandler
      * @return OrderDTO
      */
     #[Pure]
-    private function getOrderDTO(Order $order): OrderDTO
+    private function getOrderDTO(Collection $order): OrderDTO
     {
         return new OrderDTO(
-            id: $order->id,
-            total: $order->total,
-            user_id: $order->user_id,
-            restaurant: $order->restaurant,
-            orderDetail: $order->orderDetails,
+            order: $order,
         );
     }
 }

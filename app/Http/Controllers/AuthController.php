@@ -41,7 +41,7 @@ final class AuthController extends Controller
      */
     public function register(RegisterRequest $request, RegisterHandler $handler): JsonResponse
     {
-        $user = $handler->handle($request->getDto());
+        $handler->handle($request->getDto());
 
         return $this->response(
             'User created successfully'

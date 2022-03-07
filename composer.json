@@ -8,7 +8,7 @@
         "php": "^8.0",
         "barryvdh/laravel-debugbar": "^3.6",
         "doctrine/dbal": "^3.3",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "jzonta/faker-restaurant": "^2.0",
         "laravel/framework": "^8.75",
@@ -19,6 +19,7 @@
         "xvladqt/faker-lorem-flickr": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "darkaonline/l5-swagger": "^8.0",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",

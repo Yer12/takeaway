@@ -32,5 +32,5 @@ Route::get('/menu/{id}', [MenuController::class, 'show'])->where('id', '[0-9]+')
  */
 Route::middleware('jwt.verify')->group(function () {
     Route::get('/orders', [OrderController::class, 'show'])->name('order.show');
-    Route::post('/orders/create', [OrderController::class, 'createOrder'])->name('order.create');
+    Route::post('/orders', [OrderController::class, 'createOrder'])->name('order.create');
 });

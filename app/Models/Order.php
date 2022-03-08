@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $user_id
  * @property int $restaurant_id
  * @property int $total
- * @property timestamp $created_at
  * @property-read Restaurant $restaurant
  * @property-read User $user
  * @property-read Collection|OrderDetail[] $orderDetails

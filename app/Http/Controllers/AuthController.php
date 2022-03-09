@@ -8,7 +8,6 @@ use App\Exceptions\AuthenticationException;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\LoginResource;
-use App\Http\Resources\UserResource;
 use App\Services\Handlers\Authentication\LoginHandler;
 use App\Services\Handlers\Authentication\RegisterHandler;
 use Illuminate\Http\JsonResponse;

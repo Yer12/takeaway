@@ -13,11 +13,6 @@ use Illuminate\Http\JsonResponse;
 /**
  * class OrderController.
  */
-
-
-
-
-
 final class OrderController extends Controller
 {
     /**

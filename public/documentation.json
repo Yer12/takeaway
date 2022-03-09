@@ -263,7 +263,7 @@
                 ]
             }
         },
-        "/orders/create": {
+        "/orders/": {
             "post": {
                 "tags": [
                     "order"
